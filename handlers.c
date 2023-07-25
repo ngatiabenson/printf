@@ -34,7 +34,7 @@ int handle_write_char(char c, char buffer[], int flags, int width, int precision
 	}
 	return (write(1, &buffer[0], 1));
 }
-}
+
 /******** WRITE NUMBER ********/
 /**
  * write_number - prints a string
@@ -89,7 +89,7 @@ int write_num(int ind, char buffer[], int flags, int width, int prec, int length
 		padd = ' ';
 	while (prec > length)
 		buffer[--ind] = '0', length++;
-	if (etra_c != 0)
+	if (extra_c != 0)
 		length++;
 	if (width > length)
 	{
@@ -108,7 +108,7 @@ int write_num(int ind, char buffer[], int flags, int width, int prec, int length
 				buffer[--padd_start] = extra_c;
 			return (write(1, &buffer[1], i - 1) + write(1, &buffer[ind], length));
 		}
-		else if (!(flags & _MINUS) && padd == '0')/* etra char to left padd */
+		else if (!(flags & F_MINUS) && padd == '0')/* etra char to left padd */
 		{
 			if (extra_c)
 				buffer[--padd_start] = extra_c;
@@ -201,10 +201,10 @@ int write_pointer(char buffer[], int ind, int length, int width, int flags, char
 		else if (!(flags & F_MINUS) && padd == '\0')
 		{
 			if (extra_c)
-				buffer[--padd_start] = extra_c;
+				buffer[--pad_start] = extra_c;
 			buffer[1] = '0';
 			buffer[2] = 'x';
-			return (write(1, &buffer[padd_start], i - padd_start) + write(1, &buffer[ind], length - (1 - padd_start) - 2));
+			return (write(1, &buffer[pad_start], i - pad_start) + write(1, &buffer[ind], length - (1 - pad_start) - 2));
 		}
 	}
 	buffer[--ind] = 'x';
